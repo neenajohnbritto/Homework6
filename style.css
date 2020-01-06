@@ -82,7 +82,52 @@ body {
     transition: all .3s ease-in-out;
   }
   
-  img{
+  #icon-0,#icon-1,#icon-2,#icon-3,#icon-4,#city-weather{
+    height: 30px;
+    width: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  
+
+  /* *********************** */
+
+  #grid1, #grid2{
+    height: 250px;
+    padding: 25px;
+  }
+
+  #cities{
+    padding-top: 25px;
+  }
+
+  h6{
+    margin:10px;
+  }
+  
+  .card{
+    height: 150px;
+    width: 110px;
+    background-color: #1cb1d6;
+    color: white;
+    padding-top: 20px;
+  }
+
+  #date-0, #date-1, #date-2, #date-3, #date-4{
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  p{
+    margin: 5px;
+  }
+
+  button{
     text-align: left;
   }
+
+  
+
   

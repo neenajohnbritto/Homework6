@@ -4,8 +4,9 @@
 <head>
   <meta charset="utf-8">
   <title>Weather Dashboard</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css"
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
   />
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/> -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -16,93 +17,271 @@
 <div class="container">
         <div class="row">
             <div class="col-md-4">
+                <div class="row">
                 <h4>Search for a City:</h4>
-                <input type="text" class="form-control" id="inlineFormInput">
-                <button type="submit" class="btn btn-primary" id="search-btn">Submit</button>
+                  <div class="form-inline">
+                    <input type="text" class="form-control" id="inlineFormInput">
+                    <button type="submit" class="btn btn-primary" id="search-btn">Submit</button>
+                  </div>
+                </div>
+                <div class="row" id="cities">
+                  <table class="table">
+                    <tbody>
+                      
+                    </tbody>
+                  </table>
+                </div>
             </div>
             <div class="col-md-8">
-                <div class="row">
-                    <h4>Search for a City One</h4>
+                <div class="grid" id="grid1">                   
+                    <div class="row">
+                      <div class="col-xs-8">
+                        <h5 id="city-name"></h5>
+                      </div>
+                      <div class="col-xs-2">
+                        <img id="city-weather">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-12">
+                        <h6 id="temperature"></h6>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-12">
+                        <h6 id="humidity"></h6>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-12">
+                        <h6 id="wind-speed"></h6>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-12">
+                        <h6 id="uv-index"></h6>
+                      </div>
+                    </div>
                 </div>
-                <div class="row">
-                    <h4>Search for a City Two</h4>
+                
+                <div class="grid" id="grid2">
+                    <div class="row">
+                      <div class="col-xl-12">
+                        <h5 id="5day-forecast"></h5>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="card">
+                          <h6 id="date-0"></h6>
+                          <img id="icon-0">
+                          <p id="temp-0"></p>
+                          <p id="humid-0"></p>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="card">
+                          <h6 id="date-1"></h6>
+                          <img id="icon-1">
+                          <p id="temp-1"></p>
+                          <p id="humid-1"></p>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="card">
+                          <h6 id="date-2"></h6>
+                          <img id="icon-2">
+                          <p id="temp-2"></p>
+                          <p id="humid-2"></p>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="card">
+                          <h6 id="date-3"></h6>
+                          <img id="icon-3">
+                          <p id="temp-3"></p>
+                          <p id="humid-3"></p>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="card">
+                          <h6 id="date-4"></h6>
+                          <img id="icon-4">
+                          <p id="temp-4"></p>
+                          <p id="humid-4"></p>
+                        </div>
+                      </div>
+                    </div>
                 </div>
             </div>
         </div>
 </div>
 
-  <!-- <div class="container">
-    <h2>Basic Table</h2>
-    <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
-    <table class="table">
-      <thead>
-        <tr>
-          
-          <th scope="col">Movie Name</th>
-          <th scope="col">Year</th>
-          <th scope="col">Actors</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Interstellar</td>
-          <td>2014</td>
-          <td>Ellen Burstyn, Matthew McConaughey, Mackenzie Foy, John Lithgow</td>
-        </tr>
-        
-      </tbody>
-    </table>
-  </div> -->
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
-    // The createRow function takes data returned by OMDB and appends the table data to the tbody
-    // var createRow = function(data) {
-    //   // Create a new table row element
-    //   var tRow = $("<tr>");
+    
 
-    //   // Methods run on jQuery selectors return the selector they we run on
-    //   // This is why we can create and save a reference to a td in the same statement we update its text
-    //   var titleTd = $("<td>").text(data.Title);
-    //   var yearTd = $("<td>").text(data.Year);
-    //   var actorsTd = $("<td>").text(data.Actors);
-        
-    //   // Append the newly created table data to the table row
-    //   tRow.append(titleTd, yearTd, actorsTd);
-    //   // Append the table row to the table body
-    //   $("tbody").append(tRow);
-    // };
+    var currentDate = "";
+    var cityPresent = false;
 
-    // // The search OMDB function takes a movie, searches the omdb api for it, and then passes the data to createRow
-    // var searchOMDB = function(movie) {
-    //   var queryURL = "https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy";
-    //   $.ajax({
-    //     url: queryURL,
-    //     method: "GET"
-    //   }).then(function(response) {
-    //     createRow(response);
-    //   });
-    // };
+    if(localStorage.length > 0){    
+      for (var i = 0; i <= localStorage.length - 1; i++) { 
+        key = localStorage.key(i);
+        val = localStorage.getItem(key);  
+        var button = `<button type="button" class="btn btn-light btn-block" style="text-align:left">${val}</button>`;
+        console.log(val);
+        $("tbody").append(button);
+      }
+      getCurrentDayWeather(localStorage.getItem(localStorage.key(0)));
+      getFiveDayForecast(localStorage.getItem(localStorage.key(0)));
+    }
 
-    // // Search the OMDB API for the following movies, and append table rows for each
-    // searchOMDB("Mr. Nobody");
-    // searchOMDB("The Little Mermaid");
-    // searchOMDB("The Lion King");
+    
 
-    $("#search-btn").on("click", function(event) {
+
+    $("button").on("click", function(event) {
         event.preventDefault();
         var city = $("#inlineFormInput").val();
-        var tRow = $("<tr>").text(city);
-        var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + ",USA&APPID=dded005594f4d08d93b4a5e4f9c5baa4";
+        console.log("city"+city);
+        if(city === "")
+        {
+          city = $(event.target).text();
+        }
+        console.log("city"+city);
+        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + ",USA&APPID=dded005594f4d08d93b4a5e4f9c5baa4";
         $.ajax({
-        url: queryURL,
-        method: "GET"
-        }).then(function(response) {
-        $("#movie-view").text(JSON.stringify(response));
+            url: queryURL,
+            method: "GET",
+            success: function(response) {
+              var isCityPresent = verifyCityPresent(city);
+              var buttons = document.getElementsByTagName("button");
+              if(isCityPresent){
+                for(i=0;i<buttons.length;i++){
+                  console.log("buttonText" + buttons[i].textContent);
+                  if(city === buttons[i].textContent){
+                    buttons[i].remove();
+                    break;
+                  }
+                }
+              }
+              else{
+                setLocalStorage(city);
+              }
+              var button = `<button type="button" class="btn btn-light btn-block" style="text-align:left">${city}</button>`;
+              console.log(city);
+              $("tbody").prepend(button);
+              getCurrentDayWeather(city);
+              getFiveDayForecast(city);
+          }
         });
-
-        // -----------------------------------------------------------------------
-
     });
+
+    
+
+    function getCurrentDayWeather(city){
+      var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + ",USA&APPID=dded005594f4d08d93b4a5e4f9c5baa4";
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        }).then(function(response) {
+          var date = response.dt;
+          var formatedDate = new Date(date*1000).toLocaleDateString("en-US")
+          console.log(formatedDate);
+          currentDate = formatedDate;
+          var cityName = `${city} (${formatedDate})`;
+          var temperature = `Temperature: ${response.main.temp} °F`;
+          var humidity = `Humidity: ${response.main.humidity} %`;
+          var windSpeed = `Wind Speed: ${response.wind.speed} MPH`;
+          var icon =  `http://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`;
+          var lon = response.coord.lon;
+          var lat = response.coord.lat;
+          console.log(lon);
+          console.log(lat);
+          
+
+          getUVIndex(lon,lat);
+          $("#city-name").text(cityName);
+          $("#city-weather").attr("src",icon);
+          $("#temperature").text(temperature);
+          $("#humidity").text(humidity);
+          $("#wind-speed").text(windSpeed);
+          
+        });
+    }
+
+    function getUVIndex(lon,lat){
+      var queryUrl1 = "http://api.openweathermap.org/data/2.5/uvi?APPID=dded005594f4d08d93b4a5e4f9c5baa4&lat="+ lat +"&lon="+ lon;
+      $.ajax({
+          url: queryUrl1,
+          method: "GET"
+        })
+        .then(function(response) {          
+          var uVIndex = response.value;
+          var uVIndex1 = `UV Index: ${uVIndex}`;
+          $("#uv-index").text(uVIndex1);
+        });
+       
+    }
+
+    function getFiveDayForecast(city){
+      var queryUrl2 = "https://api.openweathermap.org/data/2.5/forecast?APPID=dded005594f4d08d93b4a5e4f9c5baa4&q=" + city +",US";
+      $.ajax({
+          url: queryUrl2,
+          method: "GET"
+        })
+        .then(function(response) {
+          var noOfItems = response.list.length;
+          var formatedDateOld = "";
+          var counter = 0;
+          for(var i=0; i<noOfItems; i++){
+            var date = response.list[i].dt;
+            var formatedDate = new Date(date*1000).toLocaleDateString("en-US")
+            console.log(formatedDate);
+            if(formatedDate != formatedDateOld && formatedDate != currentDate){
+              console.log(response.list[i].weather[0].icon);
+              var icon =  `http://openweathermap.org/img/wn/${response.list[i].weather[0].icon}@2x.png`;
+              var temperature = `Temp: ${response.list[i].main.temp} °F`;
+              var humidity = `Humidity: ${response.list[i].main.humidity} %`;
+              
+              $("#date-"+counter).text(formatedDate);
+              $("#icon-"+counter).attr("src",icon);
+              $("#temp-"+counter).text(temperature);
+              $("#temp-"+counter).css("font-size","12px");
+              $("#humid-"+counter).text(humidity);
+              $("#humid-"+counter).css("font-size","12px");
+              counter ++;
+            }
+            formatedDateOld = formatedDate;
+            if(counter >= 5)
+            break;
+          }
+          $("#5day-forecast").text("5-Day Forecast:");
+          console.log(noOfItems);
+        });
+    }
+
+    function verifyCityPresent(city){
+      for (var i = 0; i <= localStorage.length - 1; i++) { 
+        key = localStorage.key(i);
+        val = localStorage.getItem(key); 
+        console.log(localStorage.length);
+        console.log(val);
+        if(city === val){
+          cityPresent = true;
+        }
+      }
+      return cityPresent;
+    }
+
+    
+      
+    
+    function setLocalStorage(city){
+      localStorage.setItem(city,city);
+    }
+
+
 
   </script>
 </body>
