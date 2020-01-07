@@ -156,21 +156,26 @@
             success: function(response) {
               var isCityPresent = verifyCityPresent(city);
               var buttons = document.getElementsByTagName("button");
-              if(isCityPresent){
-                for(i=0;i<buttons.length;i++){
-                  console.log("buttonText" + buttons[i].textContent);
-                  if(city === buttons[i].textContent){
-                    buttons[i].remove();
-                    break;
-                  }
-                }
-              }
-              else{
+              // if(isCityPresent){
+              //   for(i=0;i<buttons.length;i++){
+              //     console.log("buttonText" + buttons[i].textContent);
+              //     if(city === buttons[i].textContent){
+              //       buttons[i].remove();
+              //       break;
+              //     }
+              //   }
+              // }
+              // else{
+              //   setLocalStorage(city);
+              // }
+              if(!isCityPresent){
                 setLocalStorage(city);
-              }
-              var button = `<button type="button" class="btn btn-light btn-block" style="text-align:left">${city}</button>`;
+                var button = `<button type="button" class="btn btn-light btn-block" style="text-align:left">${city}</button>`;
               console.log(city);
               $("tbody").prepend(button);
+              }
+
+              $("#inlineFormInput").val('');
               getCurrentDayWeather(city);
               getFiveDayForecast(city);
           }
